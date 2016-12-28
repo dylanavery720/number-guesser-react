@@ -1,24 +1,24 @@
 import React from 'react'
+import guessCheck from '../functions/guessCheck'
 
 
-export default class DisplayGuess extends React.Component {
+const DisplayGuess = ({ currentGuess, randomNumber }) => {
 
-
-  render() {
-    if (!this.props.currentGuess) {
-      return (
+  if (!currentGuess) {
+    return (
         <div></div>
       )
-    }
-    if (this.props.currentGuess) {
-      return (
+  }
+  if (currentGuess) {
+    return (
         <div>
         <h2>Your last guess was...</h2>
-        <h1>{this.props.currentGuess}</h1>
-        <h2>{this.props.guessHint}</h2>
+        <h1>{currentGuess}</h1>
+        <h2>{guessCheck(currentGuess, randomNumber)}</h2>
         </div>
       )
-    }
   }
-
 }
+
+
+export default DisplayGuess;

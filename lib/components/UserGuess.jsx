@@ -1,6 +1,5 @@
 import React from 'react'
 import Button from './Button'
-// import guessCheck from '../functions/guessCheck'
 import DisplayGuess from './DisplayGuess'
 
 export default class UserGuess extends React.Component {
@@ -9,31 +8,21 @@ export default class UserGuess extends React.Component {
     this.state = {
       draftMessage: '',
       currentGuess: '',
-      guessText: ''
     }
     this.updateState = this.updateState.bind(this)
     this.handleGuess = this.handleGuess.bind(this)
-    this.guessCheck = this.guessCheck.bind(this)
+    this.handleClear = this.handleClear.bind(this)
   }
 
 
   handleGuess(e) {
-    this.guessCheck(this.state.draftMessage, this.props.randomNumber)
     this.setState(
       { currentGuess: this.state.draftMessage }
         )
   }
 
-  guessCheck(guess, random) {
-    if (Number(guess) === random) {
-      this.setState({ guessText: 'You got it' })
-    }
-    if (Number(guess) > random) {
-      this.setState({ guessText: 'That is too high' })
-    }
-    if (Number(guess) < random) {
-      this.setState({ guessText: 'That is too low' })
-    }
+  handleClear(e) {
+    this.setState({ draftMessage: '' })
   }
 
   updateState(e) {
@@ -47,14 +36,15 @@ export default class UserGuess extends React.Component {
       <section>
       <input
       placeholder="Your best guess"
-      type="text"
+      type="number"
+      min={ 1 }
+      max={ this.props.max }
       value={ this.state.draftMessage }
       onChange={ this.updateState }
       ></input>
       <Button text='Guess' handleClick={this.handleGuess} />
       <Button text='Clear' handleClick={this.handleClear} />
-      <DisplayGuess randomNumber={this.props.randomNumber} currentGuess={this.state.currentGuess}
-      guessHint={this.state.guessText} />
+      <DisplayGuess randomNumber={this.props.randomNumber} currentGuess={this.state.currentGuess} />
       </section>
     )
   }
