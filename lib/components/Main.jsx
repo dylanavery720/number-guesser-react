@@ -23,7 +23,9 @@ export default class Main extends React.Component {
   render() {
     return (
         <section>
-        <UserGuess randomNumber={this.state.randomNumber} />
+        <UserGuess
+        randomNumber={this.state.randomNumber}
+        max={this.state.max} />
         </section>
     )
   }
