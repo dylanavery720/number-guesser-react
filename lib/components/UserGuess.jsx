@@ -52,6 +52,7 @@ export default class UserGuess extends React.Component {
       onChange={ this.updateState }
       ></input>
       <Button text='Guess' handleClick={this.handleGuess} />
+      <Button text='Clear' handleClick={this.handleClear} />
       <DisplayGuess randomNumber={this.props.randomNumber} currentGuess={this.state.currentGuess}
       guessHint={this.state.guessText} />
       </section>
