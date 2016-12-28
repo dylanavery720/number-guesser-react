@@ -12099,10 +12099,6 @@
 
 	var _UserGuess2 = _interopRequireDefault(_UserGuess);
 
-	var _DisplayGuess = __webpack_require__(480);
-
-	var _DisplayGuess2 = _interopRequireDefault(_DisplayGuess);
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -12137,8 +12133,9 @@
 	      return _react2.default.createElement(
 	        'section',
 	        null,
-	        _react2.default.createElement(_UserGuess2.default, { randomNumber: this.state.randomNumber }),
-	        _react2.default.createElement(_DisplayGuess2.default, { randomNumber: this.state.randomNumber })
+	        _react2.default.createElement(_UserGuess2.default, {
+	          randomNumber: this.state.randomNumber,
+	          max: this.state.max })
 	      );
 	    }
 	  }]);
@@ -29554,9 +29551,9 @@
 
 	var _Button2 = _interopRequireDefault(_Button);
 
-	var _guessCheck = __webpack_require__(479);
+	var _DisplayGuess = __webpack_require__(479);
 
-	var _guessCheck2 = _interopRequireDefault(_guessCheck);
+	var _DisplayGuess2 = _interopRequireDefault(_DisplayGuess);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -29580,18 +29577,24 @@
 	    };
 	    _this.updateState = _this.updateState.bind(_this);
 	    _this.handleGuess = _this.handleGuess.bind(_this);
+	    _this.handleClear = _this.handleClear.bind(_this);
 	    return _this;
 	  }
 
 	  _createClass(UserGuess, [{
 	    key: 'handleGuess',
-	    value: function handleGuess() {
-	      (0, _guessCheck2.default)(this.state.currentGuess, this.props.randomNumber);
+	    value: function handleGuess(e) {
+	      this.setState({ currentGuess: this.state.draftMessage });
+	    }
+	  }, {
+	    key: 'handleClear',
+	    value: function handleClear(e) {
+	      this.setState({ draftMessage: '' });
 	    }
 	  }, {
 	    key: 'updateState',
 	    value: function updateState(e) {
-	      this.setState({ draftMessage: e.target.value, currentGuess: e.target.value });
+	      this.setState({ draftMessage: e.target.value });
 	    }
 	  }, {
 	    key: 'render',
@@ -29601,11 +29604,15 @@
 	        null,
 	        _react2.default.createElement('input', {
 	          placeholder: 'Your best guess',
-	          type: 'text',
+	          type: 'number',
+	          min: 1,
+	          max: this.props.max,
 	          value: this.state.draftMessage,
 	          onChange: this.updateState
 	        }),
-	        _react2.default.createElement(_Button2.default, { text: 'Guess', handleClick: this.handleGuess })
+	        _react2.default.createElement(_Button2.default, { text: 'Guess', handleClick: this.handleGuess }),
+	        _react2.default.createElement(_Button2.default, { text: 'Clear', handleClick: this.handleClear }),
+	        _react2.default.createElement(_DisplayGuess2.default, { randomNumber: this.props.randomNumber, currentGuess: this.state.currentGuess })
 	      );
 	    }
 	  }]);
@@ -29679,16 +29686,43 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _guessCheck = __webpack_require__(480);
+
+	var _guessCheck2 = _interopRequireDefault(_guessCheck);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var guessCheck = function guessCheck(guess, random) {
-	  if (Number(guess) === random) {
-	    return true;
+	var DisplayGuess = function DisplayGuess(_ref) {
+	  var currentGuess = _ref.currentGuess,
+	      randomNumber = _ref.randomNumber;
+
+	  if (!currentGuess) {
+	    return _react2.default.createElement('div', null);
 	  }
-	  return false;
+	  if (currentGuess) {
+	    return _react2.default.createElement(
+	      'div',
+	      null,
+	      _react2.default.createElement(
+	        'h2',
+	        null,
+	        'Your last guess was...'
+	      ),
+	      _react2.default.createElement(
+	        'h1',
+	        null,
+	        currentGuess
+	      ),
+	      _react2.default.createElement(
+	        'h2',
+	        null,
+	        (0, _guessCheck2.default)(currentGuess, randomNumber)
+	      )
+	    );
+	  }
 	};
 
-	exports.default = guessCheck;
+	exports.default = DisplayGuess;
 
 /***/ },
 /* 480 */
@@ -29700,58 +29734,25 @@
 	  value: true
 	});
 
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 	var _react = __webpack_require__(299);
 
 	var _react2 = _interopRequireDefault(_react);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var DisplayGuess = function (_React$Component) {
-	  _inherits(DisplayGuess, _React$Component);
-
-	  function DisplayGuess() {
-	    _classCallCheck(this, DisplayGuess);
-
-	    return _possibleConstructorReturn(this, (DisplayGuess.__proto__ || Object.getPrototypeOf(DisplayGuess)).apply(this, arguments));
+	var guessCheck = function guessCheck(guess, random) {
+	  if (Number(guess) === random) {
+	    return 'You got it buddy';
 	  }
+	  if (Number(guess) > random) {
+	    return 'That is too high';
+	  }
+	  if (Number(guess) < random) {
+	    return 'That is too low';
+	  }
+	};
 
-	  _createClass(DisplayGuess, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'h2',
-	          null,
-	          'Your last guess was...'
-	        ),
-	        _react2.default.createElement(
-	          'h1',
-	          null,
-	          this.state.currentGuess
-	        ),
-	        _react2.default.createElement(
-	          'h2',
-	          null,
-	          this.props.randomNumber
-	        )
-	      );
-	    }
-	  }]);
-
-	  return DisplayGuess;
-	}(_react2.default.Component);
-
-	exports.default = DisplayGuess;
+	exports.default = guessCheck;
 
 /***/ },
 /* 481 */

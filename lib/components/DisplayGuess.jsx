@@ -1,9 +1,7 @@
 import React from 'react'
 import guessCheck from '../functions/guessCheck'
 
-
 const DisplayGuess = ({ currentGuess, randomNumber }) => {
-
   if (!currentGuess) {
     return (
         <div></div>

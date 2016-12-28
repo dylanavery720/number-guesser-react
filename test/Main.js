@@ -2,14 +2,11 @@ import React from 'react';
 import { shallow, mount, render } from 'enzyme';
 import { assert, expect } from 'chai';
 
-import DiplayGuess from '../lib/components/DisplayGuess';
+import Main from '../lib/components/Main';
 
-
-
-describe('<DisplayGuess />', () => {
+describe('<Main />', () => {
   it('renders as a <section>', () => {
-    const wrapper = shallow(<DisplayGuess />)
+    const wrapper = shallow(<Main />);
     assert.equal(wrapper.type(), 'section');
   });
-
 });
