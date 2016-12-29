@@ -5,10 +5,10 @@ const guessCheck = (guess, random) => {
     return 'You got it buddy'
   }
   if (Number(guess) > random) {
-    return 'That is too high'
+    return 'That number is too high. Try again.'
   }
   if (Number(guess) < random) {
-    return 'That is too low'
+    return 'That number is too low. Try again.'
   }
 }
 

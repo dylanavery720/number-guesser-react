@@ -1,0 +1,15 @@
+@import './variables.scss';
+
+
+.btn {
+  border-radius: 10px;
+  border-style: none;
+  outline: none;
+  margin: 5px;
+  height: $height;
+  width: $width/2;
+}
+
+.reset {
+  display: block;
+}

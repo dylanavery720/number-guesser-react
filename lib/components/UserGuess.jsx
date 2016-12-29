@@ -1,6 +1,7 @@
 import React from 'react'
 import Button from './Button'
 import DisplayGuess from './DisplayGuess'
+import randomNumberGen from '../functions/randomNumberGen'
 
 export default class UserGuess extends React.Component {
   constructor() {
@@ -8,17 +9,31 @@ export default class UserGuess extends React.Component {
     this.state = {
       draftMessage: '',
       currentGuess: '',
+      max: 100,
+      randomNumber: '',
     }
     this.updateState = this.updateState.bind(this)
     this.handleGuess = this.handleGuess.bind(this)
     this.handleClear = this.handleClear.bind(this)
+    this.resetGame = this.resetGame.bind(this)
   }
 
+  componentDidMount() {
+    this.resetGame()
+  }
+
+  resetGame() {
+    this.setState(
+      { randomNumber: randomNumberGen(this.state.max),
+        draftMessage: '',
+        currentGuess: '',
+        max: 100,
+      }
+    )
+  }
 
   handleGuess(e) {
-    this.setState(
-      { currentGuess: this.state.draftMessage }
-        )
+    this.setState({ currentGuess: this.state.draftMessage })
   }
 
   handleClear(e) {
@@ -26,25 +41,31 @@ export default class UserGuess extends React.Component {
   }
 
   updateState(e) {
-    this.setState(
-        { draftMessage: e.target.value }
-      )
+    this.setState({ draftMessage: e.target.value })
   }
 
   render() {
     return (
-      <section>
-      <input
-      placeholder="Your best guess"
-      type="number"
-      min={ 1 }
-      max={ this.props.max }
-      value={ this.state.draftMessage }
-      onChange={ this.updateState }
-      ></input>
-      <Button text='Guess' handleClick={this.handleGuess} />
-      <Button text='Clear' handleClick={this.handleClear} />
-      <DisplayGuess randomNumber={this.props.randomNumber} currentGuess={this.state.currentGuess} />
+      <section className='container'>
+        <DisplayGuess
+        randomNumber={this.state.randomNumber}
+        currentGuess={this.state.currentGuess} />
+        <div className='guessBox'>
+          <input
+          className='inputs'
+          placeholder="Your best guess"
+          type="number"
+          min={ 1 }
+          max={ this.state.max }
+          value={ this.state.draftMessage }
+          onChange={ this.updateState }
+          ></input>
+        </div>
+        <Button text='Guess' handleClick={this.handleGuess} />
+        <Button text='Clear' handleClick={this.handleClear} />
+          <div className='reset'>
+            <Button text='Reset' handleClick={this.resetGame} />
+          </div>
       </section>
     )
   }

@@ -1,0 +1,14 @@
+@import './variables.scss';
+
+
+.inputs {
+  display: block;
+  height: $height;
+  width: $width;
+  margin-top: $margintop;
+}
+
+.guessBox {
+  width: $width;
+  margin: 0 auto;
+}
