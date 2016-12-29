@@ -46,22 +46,26 @@ export default class UserGuess extends React.Component {
 
   render() {
     return (
-      <section>
-      <DisplayGuess
-      randomNumber={this.state.randomNumber}
-      currentGuess={this.state.currentGuess} />
-      <input
-      className='inputs'
-      placeholder="Your best guess"
-      type="number"
-      min={ 1 }
-      max={ this.state.max }
-      value={ this.state.draftMessage }
-      onChange={ this.updateState }
-      ></input>
-      <Button text='Guess' handleClick={this.handleGuess} />
-      <Button text='Clear' handleClick={this.handleClear} />
-      <Button text='Reset' handleClick={this.resetGame} />
+      <section className='container'>
+        <DisplayGuess
+        randomNumber={this.state.randomNumber}
+        currentGuess={this.state.currentGuess} />
+        <div className='guessBox'>
+          <input
+          className='inputs'
+          placeholder="Your best guess"
+          type="number"
+          min={ 1 }
+          max={ this.state.max }
+          value={ this.state.draftMessage }
+          onChange={ this.updateState }
+          ></input>
+        </div>
+        <Button text='Guess' handleClick={this.handleGuess} />
+        <Button text='Clear' handleClick={this.handleClear} />
+          <div className='reset'>
+            <Button text='Reset' handleClick={this.resetGame} />
+          </div>
       </section>
     )
   }

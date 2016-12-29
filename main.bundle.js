@@ -8207,6 +8207,8 @@
 	__webpack_require__(481);
 	// const ReactDOM = require('react-dom');
 
+	__webpack_require__(485);
+
 /***/ },
 /* 299 */
 /***/ function(module, exports, __webpack_require__) {
@@ -12091,13 +12093,13 @@
 
 	var _reactDom = __webpack_require__(330);
 
-	var _randomNumberGen = __webpack_require__(476);
-
-	var _randomNumberGen2 = _interopRequireDefault(_randomNumberGen);
-
-	var _UserGuess = __webpack_require__(477);
+	var _UserGuess = __webpack_require__(476);
 
 	var _UserGuess2 = _interopRequireDefault(_UserGuess);
+
+	var _Button = __webpack_require__(477);
+
+	var _Button2 = _interopRequireDefault(_Button);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -12113,29 +12115,16 @@
 	  function Main() {
 	    _classCallCheck(this, Main);
 
-	    var _this = _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).call(this));
-
-	    _this.state = {
-	      max: 100,
-	      randomNumber: ''
-	    };
-	    return _this;
+	    return _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).apply(this, arguments));
 	  }
 
 	  _createClass(Main, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      this.setState({ randomNumber: (0, _randomNumberGen2.default)(this.state.max) });
-	    }
-	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'section',
 	        null,
-	        _react2.default.createElement(_UserGuess2.default, {
-	          randomNumber: this.state.randomNumber,
-	          max: this.state.max })
+	        _react2.default.createElement(_UserGuess2.default, null)
 	      );
 	    }
 	  }]);
@@ -29519,41 +29508,23 @@
 	  value: true
 	});
 
-	var _react = __webpack_require__(299);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var randomNumberGen = function randomNumberGen(max) {
-	  return Math.floor(Math.random() * max);
-	};
-
-	exports.default = randomNumberGen;
-
-/***/ },
-/* 477 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _react = __webpack_require__(299);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Button = __webpack_require__(478);
+	var _Button = __webpack_require__(477);
 
 	var _Button2 = _interopRequireDefault(_Button);
 
-	var _DisplayGuess = __webpack_require__(479);
+	var _DisplayGuess = __webpack_require__(478);
 
 	var _DisplayGuess2 = _interopRequireDefault(_DisplayGuess);
+
+	var _randomNumberGen = __webpack_require__(480);
+
+	var _randomNumberGen2 = _interopRequireDefault(_randomNumberGen);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -29573,15 +29544,32 @@
 
 	    _this.state = {
 	      draftMessage: '',
-	      currentGuess: ''
+	      currentGuess: '',
+	      max: 100,
+	      randomNumber: ''
 	    };
 	    _this.updateState = _this.updateState.bind(_this);
 	    _this.handleGuess = _this.handleGuess.bind(_this);
 	    _this.handleClear = _this.handleClear.bind(_this);
+	    _this.resetGame = _this.resetGame.bind(_this);
 	    return _this;
 	  }
 
 	  _createClass(UserGuess, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.resetGame();
+	    }
+	  }, {
+	    key: 'resetGame',
+	    value: function resetGame() {
+	      this.setState({ randomNumber: (0, _randomNumberGen2.default)(this.state.max),
+	        draftMessage: '',
+	        currentGuess: '',
+	        max: 100
+	      });
+	    }
+	  }, {
 	    key: 'handleGuess',
 	    value: function handleGuess(e) {
 	      this.setState({ currentGuess: this.state.draftMessage });
@@ -29602,17 +29590,29 @@
 	      return _react2.default.createElement(
 	        'section',
 	        null,
-	        _react2.default.createElement('input', {
-	          placeholder: 'Your best guess',
-	          type: 'number',
-	          min: 1,
-	          max: this.props.max,
-	          value: this.state.draftMessage,
-	          onChange: this.updateState
-	        }),
+	        _react2.default.createElement(_DisplayGuess2.default, {
+	          randomNumber: this.state.randomNumber,
+	          currentGuess: this.state.currentGuess }),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'guessBox' },
+	          _react2.default.createElement('input', {
+	            className: 'inputs',
+	            placeholder: 'Your best guess',
+	            type: 'number',
+	            min: 1,
+	            max: this.state.max,
+	            value: this.state.draftMessage,
+	            onChange: this.updateState
+	          })
+	        ),
 	        _react2.default.createElement(_Button2.default, { text: 'Guess', handleClick: this.handleGuess }),
 	        _react2.default.createElement(_Button2.default, { text: 'Clear', handleClick: this.handleClear }),
-	        _react2.default.createElement(_DisplayGuess2.default, { randomNumber: this.props.randomNumber, currentGuess: this.state.currentGuess })
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'reset' },
+	          _react2.default.createElement(_Button2.default, { text: 'Reset', handleClick: this.resetGame })
+	        )
 	      );
 	    }
 	  }]);
@@ -29623,7 +29623,7 @@
 	exports.default = UserGuess;
 
 /***/ },
-/* 478 */
+/* 477 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29661,6 +29661,7 @@
 	      return _react2.default.createElement(
 	        'button',
 	        {
+	          className: 'btn',
 	          onClick: this.props.handleClick },
 	        this.props.text
 	      );
@@ -29673,7 +29674,7 @@
 	exports.default = Button;
 
 /***/ },
-/* 479 */
+/* 478 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29686,7 +29687,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _guessCheck = __webpack_require__(480);
+	var _guessCheck = __webpack_require__(479);
 
 	var _guessCheck2 = _interopRequireDefault(_guessCheck);
 
@@ -29725,7 +29726,7 @@
 	exports.default = DisplayGuess;
 
 /***/ },
-/* 480 */
+/* 479 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29753,6 +29754,28 @@
 	};
 
 	exports.default = guessCheck;
+
+/***/ },
+/* 480 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(299);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var randomNumberGen = function randomNumberGen(max) {
+	  return Math.floor(Math.random() * max);
+	};
+
+	exports.default = randomNumberGen;
 
 /***/ },
 /* 481 */
@@ -30100,6 +30123,46 @@
 		if(oldSrc)
 			URL.revokeObjectURL(oldSrc);
 	}
+
+
+/***/ },
+/* 485 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(486);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(484)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/sass-loader/index.js!./style.scss", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/sass-loader/index.js!./style.scss");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 486 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(483)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "body {\n  text-align: center; }\n\n.btn {\n  border-radius: 10px;\n  border-style: none;\n  outline: none; }\n\n.reset {\n  display: block; }\n\n.inputs {\n  display: block;\n  width: 100px; }\n\n.guessBox {\n  width: 100px;\n  margin: 0 auto; }\n", ""]);
+
+	// exports
 
 
 /***/ }
