@@ -48,6 +48,7 @@ export default class UserGuess extends React.Component {
     return (
       <section>
       <input
+      className='inputs'
       placeholder="Your best guess"
       type="number"
       min={ 1 }
@@ -57,8 +58,11 @@ export default class UserGuess extends React.Component {
       ></input>
       <Button text='Guess' handleClick={this.handleGuess} />
       <Button text='Clear' handleClick={this.handleClear} />
-      <DisplayGuess randomNumber={this.state.randomNumber} currentGuess={this.state.currentGuess} />
-      <Button text='Reset' handleClick={this.resetGame} />
+      <DisplayGuess
+      randomNumber={this.state.randomNumber}
+      resetGame={this.resetGame}
+      currentGuess={this.state.currentGuess} />
+
       </section>
     )
   }
