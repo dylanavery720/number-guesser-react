@@ -1,9 +1,7 @@
 import React from 'react'
 import guessCheck from '../functions/guessCheck'
-import Button from './Button'
 
-
-const DisplayGuess = ({ currentGuess, randomNumber, resetGame }) => {
+const DisplayGuess = ({ currentGuess, randomNumber }) => {
   if (!currentGuess) {
     return (
         <div></div>
@@ -15,7 +13,6 @@ const DisplayGuess = ({ currentGuess, randomNumber, resetGame }) => {
         <h2>Your last guess was...</h2>
         <h1>{currentGuess}</h1>
         <h2>{guessCheck(currentGuess, randomNumber)}</h2>
-        <Button text='Reset' handleClick={resetGame} />
         </div>
       )
   }
