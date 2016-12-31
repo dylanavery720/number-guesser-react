@@ -1,8 +1,11 @@
 import React from 'react';
 
-const guessCheck = (guess, random) => {
+const guessCheck = (guess, random, min, max) => {
+  if (Number(guess) < min || Number(guess) > max) {
+    return 'Please enter a number between the minimum & maximum.'
+  }
   if (Number(guess) === random) {
-    return 'You got it buddy'
+    return 'You got it buddy.'
   }
   if (Number(guess) > random) {
     return 'That number is too high. Try again.'

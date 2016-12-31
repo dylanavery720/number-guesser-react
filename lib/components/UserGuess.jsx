@@ -10,6 +10,7 @@ export default class UserGuess extends React.Component {
       draftMessage: '',
       currentGuess: '',
       max: 100,
+      min: 1,
       randomNumber: '',
     }
     this.updateState = this.updateState.bind(this)
@@ -49,22 +50,25 @@ export default class UserGuess extends React.Component {
       <section className='container'>
         <DisplayGuess
         randomNumber={this.state.randomNumber}
-        currentGuess={this.state.currentGuess} />
+        currentGuess={this.state.currentGuess}
+        min={ this.state.min }
+        max={ this.state.max }
+        />
         <div className='guessBox'>
           <input
           className='inputs'
           placeholder="Your best guess"
           type="number"
-          min={ 1 }
+          min={ this.state.min }
           max={ this.state.max }
           value={ this.state.draftMessage }
           onChange={ this.updateState }
           ></input>
         </div>
         <Button text='Guess' handleClick={this.handleGuess} />
-        <Button text='Clear' handleClick={this.handleClear} />
+        <Button text='Clear' handleClick={this.handleClear} disabled={!this.state.draftMessage} />
           <div className='reset'>
-            <Button text='Reset' handleClick={this.resetGame} />
+            <Button text='Reset' handleClick={this.resetGame} disabled={!this.state.currentGuess} />
           </div>
       </section>
     )
