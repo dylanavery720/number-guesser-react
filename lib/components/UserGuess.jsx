@@ -66,9 +66,9 @@ export default class UserGuess extends React.Component {
           ></input>
         </div>
         <Button text='Guess' handleClick={this.handleGuess} />
-        <Button text='Clear' handleClick={this.handleClear} />
+        <Button text='Clear' handleClick={this.handleClear} disabled={!this.state.draftMessage} />
           <div className='reset'>
-            <Button text='Reset' handleClick={this.resetGame} />
+            <Button text='Reset' handleClick={this.resetGame} disabled={!this.state.currentGuess} />
           </div>
       </section>
     )
