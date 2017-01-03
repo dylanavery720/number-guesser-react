@@ -5,6 +5,7 @@ import UserGuess from './UserGuess'
 import MinMax from './MinMax'
 import Button from './Button'
 import randomNumberGen from '../functions/randomNumberGen'
+import guessCheck from '../functions/guessCheck'
 
 
 export default class Main extends React.Component {
@@ -49,6 +50,7 @@ export default class Main extends React.Component {
 
   handleGuess(e) {
     this.setState({ currentGuess: this.state.draftMessage })
+    this.guessCheckCheck()
   }
 
   updateState(e) {
@@ -68,6 +70,20 @@ export default class Main extends React.Component {
 
   handleClear(e) {
     this.setState({ draftMessage: '' })
+  }
+
+  guessCheckCheck() {
+    if (guessCheck(this.state.draftMessage, this.state.randomnumber,
+      this.state.min, this.state.max) === 'You got it buddy.') {
+      this.setState(
+        { randomnumber: randomNumberGen(this.state.max, this.state.min),
+          min: this.state.min - 10,
+          max: this.state.max + 10,
+          draftMessage: '',
+          currentGuess: '',
+        }
+      )
+    }
   }
 
   render() {
