@@ -9,9 +9,7 @@ export default class UserGuess extends React.Component {
     this.state = {
       draftMessage: '',
       currentGuess: '',
-      max: 100,
-      min: 1,
-      randomNumber: '',
+      // randomNumber: '',
     }
     this.updateState = this.updateState.bind(this)
     this.handleGuess = this.handleGuess.bind(this)
@@ -24,11 +22,10 @@ export default class UserGuess extends React.Component {
   }
 
   resetGame() {
-    this.setState(
-      { randomNumber: randomNumberGen(this.state.max),
+    this.setState({
+      // { randomNumber: randomNumberGen(this.props.max),
         draftMessage: '',
         currentGuess: '',
-        max: 100,
       }
     )
   }
@@ -49,27 +46,24 @@ export default class UserGuess extends React.Component {
     return (
       <section className='container'>
         <DisplayGuess
-        randomNumber={this.state.randomNumber}
+        randomNumber={this.props.randomnumber}
         currentGuess={this.state.currentGuess}
-        min={ this.state.min }
-        max={ this.state.max }
+        min={ this.props.min }
+        max={ this.props.max }
         />
         <div className='guessBox'>
           <input
           className='inputs'
           placeholder="Your best guess"
           type="number"
-          min={ this.state.min }
-          max={ this.state.max }
+          min={ this.props.min }
+          max={ this.props.max }
           value={ this.state.draftMessage }
           onChange={ this.updateState }
           ></input>
         </div>
         <Button text='Guess' handleClick={this.handleGuess} />
         <Button text='Clear' handleClick={this.handleClear} disabled={!this.state.draftMessage} />
-          <div className='reset'>
-            <Button text='Reset' handleClick={this.resetGame} disabled={!this.state.currentGuess} />
-          </div>
       </section>
     )
   }
