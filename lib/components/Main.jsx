@@ -14,10 +14,16 @@ export default class Main extends React.Component {
       min: 1,
       max: 100,
       randomnumber: '',
+      currentGuess: '',
+      draftMessage: '',
     }
     this.handleSet = this.handleSet.bind(this)
     this.updateMin = this.updateMin.bind(this)
     this.updateMax = this.updateMax.bind(this)
+    this.resetGame = this.resetGame.bind(this)
+    this.handleGuess = this.handleGuess.bind(this)
+    this.updateState = this.updateState.bind(this)
+    this.handleClear = this.handleClear.bind(this)
   }
 
   componentDidMount(){
@@ -26,7 +32,6 @@ export default class Main extends React.Component {
 
   handleSet(e) {
     this.setState({randomnumber: randomNumberGen(this.state.max)})
-    // this.setState({ max: this.state.max, min: this.state.min })
   }
 
   updateMin(e) {
@@ -37,13 +42,39 @@ export default class Main extends React.Component {
     this.setState({ max: e.target.value })
   }
 
+  handleGuess(e) {
+    this.setState({ currentGuess: this.state.draftMessage })
+  }
+
+  updateState(e) {
+    this.setState({ draftMessage: e.target.value })
+  }
+
+  resetGame() {
+    this.setState(
+      { randomnumber: '',
+        min: 1,
+        max: 100,
+      }
+    )
+  }
+
+  handleClear(e) {
+    this.setState({ draftMessage: '' })
+  }
+
   render() {
     return (
         <section>
         <UserGuess
         min={this.state.min}
         max={this.state.max}
-        randomnumber={this.state.randomnumber} />
+        randomnumber={this.state.randomnumber}
+        handleGuess={this.handleGuess}
+        updateState={this.updateState}
+        handleClear={this.handleClear}
+        currentGuess={this.state.currentGuess}
+        draftMessage={this.state.draftMessage}/>
         <div className='reset'>
           <Button text='Reset' handleClick={this.resetGame} disabled={!this.state.currentGuess} />
         </div>

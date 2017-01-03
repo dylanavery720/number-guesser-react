@@ -7,47 +7,23 @@ export default class UserGuess extends React.Component {
   constructor() {
     super()
     this.state = {
-      draftMessage: '',
-      currentGuess: '',
-      // randomNumber: '',
+
     }
-    this.updateState = this.updateState.bind(this)
-    this.handleGuess = this.handleGuess.bind(this)
-    this.handleClear = this.handleClear.bind(this)
-    this.resetGame = this.resetGame.bind(this)
   }
 
-  componentDidMount() {
-    this.resetGame()
-  }
 
-  resetGame() {
-    this.setState({
-      // { randomNumber: randomNumberGen(this.props.max),
-        draftMessage: '',
-        currentGuess: '',
-      }
-    )
-  }
 
-  handleGuess(e) {
-    this.setState({ currentGuess: this.state.draftMessage })
-  }
 
-  handleClear(e) {
-    this.setState({ draftMessage: '' })
-  }
 
-  updateState(e) {
-    this.setState({ draftMessage: e.target.value })
-  }
+
+
 
   render() {
     return (
       <section className='container'>
         <DisplayGuess
         randomNumber={this.props.randomnumber}
-        currentGuess={this.state.currentGuess}
+        currentGuess={this.props.currentGuess}
         min={ this.props.min }
         max={ this.props.max }
         />
@@ -58,12 +34,12 @@ export default class UserGuess extends React.Component {
           type="number"
           min={ this.props.min }
           max={ this.props.max }
-          value={ this.state.draftMessage }
-          onChange={ this.updateState }
+          value={ this.props.draftMessage }
+          onChange={ this.props.updateState }
           ></input>
         </div>
-        <Button text='Guess' handleClick={this.handleGuess} />
-        <Button text='Clear' handleClick={this.handleClear} disabled={!this.state.draftMessage} />
+        <Button text='Guess' handleClick={this.props.handleGuess} />
+        <Button text='Clear' handleClick={this.props.handleClear} disabled={!this.props.draftMessage} />
       </section>
     )
   }
