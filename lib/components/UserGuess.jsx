@@ -4,19 +4,6 @@ import DisplayGuess from './DisplayGuess'
 import randomNumberGen from '../functions/randomNumberGen'
 
 export default class UserGuess extends React.Component {
-  constructor() {
-    super()
-    this.state = {
-
-    }
-  }
-
-
-
-
-
-
-
 
   render() {
     return (
@@ -39,7 +26,9 @@ export default class UserGuess extends React.Component {
           ></input>
         </div>
         <Button text='Guess' handleClick={this.props.handleGuess} />
-        <Button text='Clear' handleClick={this.props.handleClear} disabled={!this.props.draftMessage} />
+        <Button text='Clear'
+        handleClick={this.props.handleClear}
+        disabled={!this.props.draftMessage} />
       </section>
     )
   }

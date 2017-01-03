@@ -26,12 +26,17 @@ export default class Main extends React.Component {
     this.handleClear = this.handleClear.bind(this)
   }
 
-  componentDidMount(){
-    this.setState({randomnumber: randomNumberGen(this.state.max)})
+  componentDidMount() {
+    this.setState({ randomnumber: randomNumberGen(this.state.max, this.state.min) })
   }
 
   handleSet(e) {
-    this.setState({randomnumber: randomNumberGen(this.state.max)})
+    this.setState(
+      { randomnumber: randomNumberGen(this.state.max, this.state.min),
+        draftMessage: '',
+        currentGuess: '',
+      }
+    )
   }
 
   updateMin(e) {
@@ -52,9 +57,11 @@ export default class Main extends React.Component {
 
   resetGame() {
     this.setState(
-      { randomnumber: '',
+      { randomnumber: randomNumberGen(this.state.max, this.state.min),
         min: 1,
         max: 100,
+        draftMessage: '',
+        currentGuess: '',
       }
     )
   }
@@ -65,7 +72,7 @@ export default class Main extends React.Component {
 
   render() {
     return (
-        <section>
+      <section>
         <UserGuess
         min={this.state.min}
         max={this.state.max}
@@ -84,7 +91,7 @@ export default class Main extends React.Component {
         handleClick={this.handleSet}
         updateMax={this.updateMax}
         updateMin={this.updateMin} />
-        </section>
+      </section>
     )
   }
 

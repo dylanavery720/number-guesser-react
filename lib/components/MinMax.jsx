@@ -1,13 +1,10 @@
-
-
-
 import React from 'react'
 import Button from './Button'
 
-export default class MinMax extends React.Component  {
+export default class MinMax extends React.Component {
 
   render() {
-  return (<div className='guessBox'>
+    return (<div className='guessBox'>
   <input
   className='inputs'
   placeholder="min"
@@ -25,6 +22,6 @@ export default class MinMax extends React.Component  {
   <Button text='Set' handleClick={this.props.handleClick} />
 </div>
 )
-}
+  }
 
 }
