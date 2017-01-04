@@ -1,4 +1,7 @@
-# React Starter Kit
+# Number Guesser in React
+
+'A Simple Number Guesser'
+
 
 To install the dependencies:
 
