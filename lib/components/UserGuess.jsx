@@ -3,34 +3,32 @@ import Button from './Button'
 import DisplayGuess from './DisplayGuess'
 import randomNumberGen from '../functions/randomNumberGen'
 
-export default class UserGuess extends React.Component {
-
-  render() {
-    return (
+const UserGuess = ({ randomnumber, currentGuess,
+   min, max, draftMessage, updateState,
+   handleGuess, handleClear }) =>
       <section className='container'>
         <DisplayGuess
-        randomNumber={this.props.randomnumber}
-        currentGuess={this.props.currentGuess}
-        min={ this.props.min }
-        max={ this.props.max }
+        randomNumber={randomnumber}
+        currentGuess={currentGuess}
+        min={min}
+        max={max}
         />
         <div className='guessBox'>
           <input
+          id='guessinput'
           className='inputs'
           placeholder="Your best guess"
           type="number"
-          min={ this.props.min }
-          max={ this.props.max }
-          value={ this.props.draftMessage }
-          onChange={ this.props.updateState }
+          min={min}
+          max={max}
+          value={draftMessage}
+          onChange={updateState}
           ></input>
         </div>
-        <Button text='Guess' handleClick={this.props.handleGuess} />
-        <Button text='Clear'
-        handleClick={this.props.handleClear}
-        disabled={!this.props.draftMessage} />
+        <Button text='Guess' id='guesstest' handleClick={handleGuess} />
+        <Button text='Clear' id='cleartest'
+        handleClick={handleClear}
+        disabled={!draftMessage} />
       </section>
-    )
-  }
 
-  }
+export default UserGuess

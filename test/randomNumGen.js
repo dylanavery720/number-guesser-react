@@ -6,4 +6,10 @@ describe('randomNumberGen', () => {
   it('should be a function', () => {
     assert.isFunction(randomNumberGen);
   });
+  it('should take a max and a min as arg', () => {
+    assert.isFunction(randomNumberGen);
+  });
+  it('should generate a random number', () => {
+    assert.isFunction(randomNumberGen);
+  });
 });

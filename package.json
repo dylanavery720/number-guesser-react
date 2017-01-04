@@ -48,6 +48,7 @@
     "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
-    "react-addons-test-utils": "^15.4.1"
+    "react-addons-test-utils": "^15.4.1",
+    "sinon": "^1.17.7"
   }
 }

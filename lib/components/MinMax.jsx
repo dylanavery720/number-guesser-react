@@ -1,28 +1,25 @@
 import React from 'react'
 import Button from './Button'
 
-export default class MinMax extends React.Component {
+const MinMax = ({ min, updateMin, max, updateMax, handleClick }) =>
 
-  render() {
-    return (
   <div className='guessBox'>
     <input
     className='inputs'
     placeholder="min"
     type="number"
-    value={ this.props.min }
-    onChange={ this.props.updateMin}
+    value={min}
+    onChange={updateMin}
     ></input>
     <input
     className='inputs'
     placeholder="max"
     type="number"
-    value={ this.props.max }
-    onChange={ this.props.updateMax }
+    value={max}
+    onChange={updateMax}
     ></input>
-    <Button text='Set' handleClick={this.props.handleClick} />
+    <Button text='Set' handleClick={handleClick} />
   </div>
-)
-  }
 
-}
+
+export default MinMax
