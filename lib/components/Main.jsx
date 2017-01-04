@@ -48,13 +48,17 @@ export default class Main extends React.Component {
     this.setState({ max: e.target.value })
   }
 
+  updateState(e) {
+    this.setState({ draftMessage: e.target.value })
+  }
+
   handleGuess(e) {
     this.setState({ currentGuess: this.state.draftMessage })
     this.guessCheckCheck()
   }
 
-  updateState(e) {
-    this.setState({ draftMessage: e.target.value })
+  handleClear(e) {
+    this.setState({ draftMessage: '' })
   }
 
   resetGame() {
@@ -66,10 +70,6 @@ export default class Main extends React.Component {
         currentGuess: '',
       }
     )
-  }
-
-  handleClear(e) {
-    this.setState({ draftMessage: '' })
   }
 
   guessCheckCheck() {
