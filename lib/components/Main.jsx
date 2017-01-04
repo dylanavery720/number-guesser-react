@@ -41,11 +41,15 @@ export default class Main extends React.Component {
   }
 
   updateMin(e) {
-    this.setState({ min: e.target.value })
+    this.setState({ min: Number(e.target.value) })
   }
 
   updateMax(e) {
-    this.setState({ max: e.target.value })
+    this.setState({ max: Number(e.target.value) })
+  }
+
+  updateState(e) {
+    this.setState({ draftMessage: e.target.value })
   }
 
   handleGuess(e) {
@@ -53,34 +57,28 @@ export default class Main extends React.Component {
     this.guessCheckCheck()
   }
 
-  updateState(e) {
-    this.setState({ draftMessage: e.target.value })
+  handleClear(e) {
+    this.setState({ draftMessage: '' })
   }
 
   resetGame() {
     this.setState(
       { randomnumber: randomNumberGen(this.state.max, this.state.min),
-        min: 1,
-        max: 100,
+        min: this.state.min,
+        max: this.state.max,
         draftMessage: '',
         currentGuess: '',
       }
     )
   }
 
-  handleClear(e) {
-    this.setState({ draftMessage: '' })
-  }
-
   guessCheckCheck() {
     if (guessCheck(this.state.draftMessage, this.state.randomnumber,
-      this.state.min, this.state.max) === 'You got it buddy.') {
+      this.state.min, this.state.max) === 'You got it buddy. Click reset to advance.') {
       this.setState(
-        { randomnumber: randomNumberGen(this.state.max, this.state.min),
+        {
           min: this.state.min - 10,
           max: this.state.max + 10,
-          draftMessage: '',
-          currentGuess: '',
         }
       )
     }

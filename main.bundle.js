@@ -12160,12 +12160,17 @@
 	  }, {
 	    key: 'updateMin',
 	    value: function updateMin(e) {
-	      this.setState({ min: e.target.value });
+	      this.setState({ min: Number(e.target.value) });
 	    }
 	  }, {
 	    key: 'updateMax',
 	    value: function updateMax(e) {
-	      this.setState({ max: e.target.value });
+	      this.setState({ max: Number(e.target.value) });
+	    }
+	  }, {
+	    key: 'updateState',
+	    value: function updateState(e) {
+	      this.setState({ draftMessage: e.target.value });
 	    }
 	  }, {
 	    key: 'handleGuess',
@@ -12174,34 +12179,27 @@
 	      this.guessCheckCheck();
 	    }
 	  }, {
-	    key: 'updateState',
-	    value: function updateState(e) {
-	      this.setState({ draftMessage: e.target.value });
-	    }
-	  }, {
-	    key: 'resetGame',
-	    value: function resetGame() {
-	      this.setState({ randomnumber: (0, _randomNumberGen2.default)(this.state.max, this.state.min),
-	        min: 1,
-	        max: 100,
-	        draftMessage: '',
-	        currentGuess: ''
-	      });
-	    }
-	  }, {
 	    key: 'handleClear',
 	    value: function handleClear(e) {
 	      this.setState({ draftMessage: '' });
 	    }
 	  }, {
+	    key: 'resetGame',
+	    value: function resetGame() {
+	      this.setState({ randomnumber: (0, _randomNumberGen2.default)(this.state.max, this.state.min),
+	        min: this.state.min,
+	        max: this.state.max,
+	        draftMessage: '',
+	        currentGuess: ''
+	      });
+	    }
+	  }, {
 	    key: 'guessCheckCheck',
 	    value: function guessCheckCheck() {
-	      if ((0, _guessCheck2.default)(this.state.draftMessage, this.state.randomnumber, this.state.min, this.state.max) === 'You got it buddy.') {
-	        this.setState({ randomnumber: (0, _randomNumberGen2.default)(this.state.max, this.state.min),
+	      if ((0, _guessCheck2.default)(this.state.draftMessage, this.state.randomnumber, this.state.min, this.state.max) === 'You got it buddy. Click reset to advance.') {
+	        this.setState({
 	          min: this.state.min - 10,
-	          max: this.state.max + 10,
-	          draftMessage: '',
-	          currentGuess: ''
+	          max: this.state.max + 10
 	        });
 	      }
 	    }
@@ -29614,8 +29612,6 @@
 	  value: true
 	});
 
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 	var _react = __webpack_require__(299);
 
 	var _react2 = _interopRequireDefault(_react);
@@ -29634,56 +29630,44 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var UserGuess = function (_React$Component) {
-	  _inherits(UserGuess, _React$Component);
-
-	  function UserGuess() {
-	    _classCallCheck(this, UserGuess);
-
-	    return _possibleConstructorReturn(this, (UserGuess.__proto__ || Object.getPrototypeOf(UserGuess)).apply(this, arguments));
-	  }
-
-	  _createClass(UserGuess, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'section',
-	        { className: 'container' },
-	        _react2.default.createElement(_DisplayGuess2.default, {
-	          randomNumber: this.props.randomnumber,
-	          currentGuess: this.props.currentGuess,
-	          min: this.props.min,
-	          max: this.props.max
-	        }),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'guessBox' },
-	          _react2.default.createElement('input', {
-	            className: 'inputs',
-	            placeholder: 'Your best guess',
-	            type: 'number',
-	            min: this.props.min,
-	            max: this.props.max,
-	            value: this.props.draftMessage,
-	            onChange: this.props.updateState
-	          })
-	        ),
-	        _react2.default.createElement(_Button2.default, { text: 'Guess', handleClick: this.props.handleGuess }),
-	        _react2.default.createElement(_Button2.default, { text: 'Clear',
-	          handleClick: this.props.handleClear,
-	          disabled: !this.props.draftMessage })
-	      );
-	    }
-	  }]);
-
-	  return UserGuess;
-	}(_react2.default.Component);
+	var UserGuess = function UserGuess(_ref) {
+	  var randomnumber = _ref.randomnumber,
+	      currentGuess = _ref.currentGuess,
+	      min = _ref.min,
+	      max = _ref.max,
+	      draftMessage = _ref.draftMessage,
+	      updateState = _ref.updateState,
+	      handleGuess = _ref.handleGuess,
+	      handleClear = _ref.handleClear;
+	  return _react2.default.createElement(
+	    'section',
+	    { className: 'container' },
+	    _react2.default.createElement(_DisplayGuess2.default, {
+	      randomNumber: randomnumber,
+	      currentGuess: currentGuess,
+	      min: min,
+	      max: max
+	    }),
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'guessBox' },
+	      _react2.default.createElement('input', {
+	        id: 'guessinput',
+	        className: 'inputs',
+	        placeholder: 'Your best guess',
+	        type: 'number',
+	        min: min,
+	        max: max,
+	        value: draftMessage,
+	        onChange: updateState
+	      })
+	    ),
+	    _react2.default.createElement(_Button2.default, { text: 'Guess', id: 'guesstest', handleClick: handleGuess }),
+	    _react2.default.createElement(_Button2.default, { text: 'Clear', id: 'cleartest',
+	      handleClick: handleClear,
+	      disabled: !draftMessage })
+	  );
+	};
 
 	exports.default = UserGuess;
 
@@ -29694,10 +29678,8 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	      value: true
 	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _react = __webpack_require__(299);
 
@@ -29705,37 +29687,19 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var Button = function (_React$Component) {
-	  _inherits(Button, _React$Component);
-
-	  function Button() {
-	    _classCallCheck(this, Button);
-
-	    return _possibleConstructorReturn(this, (Button.__proto__ || Object.getPrototypeOf(Button)).apply(this, arguments));
-	  }
-
-	  _createClass(Button, [{
-	    key: 'render',
-	    value: function render() {
+	var Button = function Button(_ref) {
+	      var handleClick = _ref.handleClick,
+	          disabled = _ref.disabled,
+	          text = _ref.text;
 	      return _react2.default.createElement(
-	        'button',
-	        {
-	          className: 'btn',
-	          onClick: this.props.handleClick,
-	          disabled: this.props.disabled },
-	        this.props.text
+	            'button',
+	            {
+	                  className: 'btn',
+	                  onClick: handleClick,
+	                  disabled: disabled },
+	            text
 	      );
-	    }
-	  }]);
-
-	  return Button;
-	}(_react2.default.Component);
+	};
 
 	exports.default = Button;
 
@@ -29812,7 +29776,7 @@
 	    return 'Please enter a number between the minimum & maximum.';
 	  }
 	  if (Number(guess) === random) {
-	    return 'You got it buddy.';
+	    return 'You got it buddy. Click reset to advance.';
 	  }
 	  if (Number(guess) > random) {
 	    return 'That number is too high. Try again.';
@@ -29856,8 +29820,6 @@
 	  value: true
 	});
 
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 	var _react = __webpack_require__(299);
 
 	var _react2 = _interopRequireDefault(_react);
@@ -29868,48 +29830,32 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var MinMax = function (_React$Component) {
-	  _inherits(MinMax, _React$Component);
-
-	  function MinMax() {
-	    _classCallCheck(this, MinMax);
-
-	    return _possibleConstructorReturn(this, (MinMax.__proto__ || Object.getPrototypeOf(MinMax)).apply(this, arguments));
-	  }
-
-	  _createClass(MinMax, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        { className: 'guessBox' },
-	        _react2.default.createElement('input', {
-	          className: 'inputs',
-	          placeholder: 'min',
-	          type: 'number',
-	          value: this.props.min,
-	          onChange: this.props.updateMin
-	        }),
-	        _react2.default.createElement('input', {
-	          className: 'inputs',
-	          placeholder: 'max',
-	          type: 'number',
-	          value: this.props.max,
-	          onChange: this.props.updateMax
-	        }),
-	        _react2.default.createElement(_Button2.default, { text: 'Set', handleClick: this.props.handleClick })
-	      );
-	    }
-	  }]);
-
-	  return MinMax;
-	}(_react2.default.Component);
+	var MinMax = function MinMax(_ref) {
+	  var min = _ref.min,
+	      updateMin = _ref.updateMin,
+	      max = _ref.max,
+	      updateMax = _ref.updateMax,
+	      handleClick = _ref.handleClick;
+	  return _react2.default.createElement(
+	    'div',
+	    { className: 'guessBox' },
+	    _react2.default.createElement('input', {
+	      className: 'inputs',
+	      placeholder: 'min',
+	      type: 'number',
+	      value: min,
+	      onChange: updateMin
+	    }),
+	    _react2.default.createElement('input', {
+	      className: 'inputs',
+	      placeholder: 'max',
+	      type: 'number',
+	      value: max,
+	      onChange: updateMax
+	    }),
+	    _react2.default.createElement(_Button2.default, { text: 'Set', handleClick: handleClick })
+	  );
+	};
 
 	exports.default = MinMax;
 
