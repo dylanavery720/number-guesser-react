@@ -12160,12 +12160,12 @@
 	  }, {
 	    key: 'updateMin',
 	    value: function updateMin(e) {
-	      this.setState({ min: e.target.value });
+	      this.setState({ min: Number(e.target.value) });
 	    }
 	  }, {
 	    key: 'updateMax',
 	    value: function updateMax(e) {
-	      this.setState({ max: e.target.value });
+	      this.setState({ max: Number(e.target.value) });
 	    }
 	  }, {
 	    key: 'updateState',
@@ -12187,8 +12187,8 @@
 	    key: 'resetGame',
 	    value: function resetGame() {
 	      this.setState({ randomnumber: (0, _randomNumberGen2.default)(this.state.max, this.state.min),
-	        min: 1,
-	        max: 100,
+	        min: this.state.min,
+	        max: this.state.max,
 	        draftMessage: '',
 	        currentGuess: ''
 	      });
@@ -12196,12 +12196,10 @@
 	  }, {
 	    key: 'guessCheckCheck',
 	    value: function guessCheckCheck() {
-	      if ((0, _guessCheck2.default)(this.state.draftMessage, this.state.randomnumber, this.state.min, this.state.max) === 'You got it buddy.') {
-	        this.setState({ randomnumber: (0, _randomNumberGen2.default)(this.state.max, this.state.min),
+	      if ((0, _guessCheck2.default)(this.state.draftMessage, this.state.randomnumber, this.state.min, this.state.max) === 'You got it buddy. Click reset to advance.') {
+	        this.setState({
 	          min: this.state.min - 10,
-	          max: this.state.max + 10,
-	          draftMessage: '',
-	          currentGuess: ''
+	          max: this.state.max + 10
 	        });
 	      }
 	    }
@@ -29778,7 +29776,7 @@
 	    return 'Please enter a number between the minimum & maximum.';
 	  }
 	  if (Number(guess) === random) {
-	    return 'You got it buddy.';
+	    return 'You got it buddy. Click reset to advance.';
 	  }
 	  if (Number(guess) > random) {
 	    return 'That number is too high. Try again.';

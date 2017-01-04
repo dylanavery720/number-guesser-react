@@ -5,7 +5,7 @@ const guessCheck = (guess, random, min, max) => {
     return 'Please enter a number between the minimum & maximum.'
   }
   if (Number(guess) === random) {
-    return 'You got it buddy.'
+    return 'You got it buddy. Click reset to advance.'
   }
   if (Number(guess) > random) {
     return 'That number is too high. Try again.'

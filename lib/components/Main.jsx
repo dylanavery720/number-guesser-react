@@ -64,8 +64,8 @@ export default class Main extends React.Component {
   resetGame() {
     this.setState(
       { randomnumber: randomNumberGen(this.state.max, this.state.min),
-        min: 1,
-        max: 100,
+        min: this.state.min,
+        max: this.state.max,
         draftMessage: '',
         currentGuess: '',
       }
@@ -74,14 +74,11 @@ export default class Main extends React.Component {
 
   guessCheckCheck() {
     if (guessCheck(this.state.draftMessage, this.state.randomnumber,
-      this.state.min, this.state.max) === 'You got it buddy.') {
+      this.state.min, this.state.max) === 'You got it buddy. Click reset to advance.') {
       this.setState(
         {
           min: this.state.min - 10,
           max: this.state.max + 10,
-          randomnumber: randomNumberGen(this.state.max, this.state.min),
-          draftMessage: '',
-          currentGuess: '',
         }
       )
     }
