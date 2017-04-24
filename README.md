@@ -2,6 +2,9 @@
 
 'A Simple Number Guesser'
 
+### Overview
+
+The purpose of this project for me was to write a Robust test suite for a React application. 
 
 To install the dependencies:
 
